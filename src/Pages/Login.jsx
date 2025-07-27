@@ -26,6 +26,7 @@ const Login = () => {
         setError(errorCode);
         toast.error(errorCode);
       });
+       
   };
   const handleGoogleLogin = () => {
     signInWithGoogle()

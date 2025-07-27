@@ -19,9 +19,10 @@ const Register = () => {
     } else {
       setNameError("");
     }
-    const photo = form.photo.value;
+    // const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
+    // console.log(photo)
 
     if (password.length < 8) {
       setPasswordError("Password must be at least 8 characters long");
@@ -47,7 +48,7 @@ const Register = () => {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-
+        navigate(`${location.state ? location.state : "/"}`);
         setUser(user);
         toast.success(`${user.email} registered successfully!`);
         // updateUser({ displayName: name, photoURL: photo })
