@@ -8,6 +8,7 @@ import ShareTip from "../Pages/ShareTip";
 import MyTips from "../Pages/MyTips";
 import Register from "../Pages/Register";
 import Login from "../Pages/Login";
+import TipDetails from "../Pages/TipDetails";
 
 const router = createBrowserRouter([
   {
@@ -23,10 +24,14 @@ const router = createBrowserRouter([
       },
       {
         path: "/browse-tips",
-        loader: () => fetch("http://localhost:3000/tips"),
+        loader: () => fetch("http://localhost:3000/tips/"),
         element: <BrowseTips></BrowseTips>,
       },
-      //   { path: "/tips/:id", element: <TipDetails /> },
+      {
+        path: "/tips/:id",
+        loader: ({params}) => fetch(`http://localhost:3000/tips/${params.id}`),
+        element: <TipDetails />,
+      },
       { path: "/share-tip", element: <ShareTip /> }, // Private Route হবে
       { path: "/my-tips", element: <MyTips /> }, // Private Route হবে
       { path: "/login", element: <Login /> },
