@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
-  const { createUser, setUser, signInWithGoogle } = use(AuthContext);
+  const { createUser, setUser,updateUser, signInWithGoogle } = use(AuthContext);
   const [nameError, setNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
@@ -19,7 +19,7 @@ const Register = () => {
     } else {
       setNameError("");
     }
-    // const photo = form.photo.value;
+    const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
     // console.log(photo)
@@ -51,15 +51,15 @@ const Register = () => {
         navigate(`${location.state ? location.state : "/"}`);
         setUser(user);
         toast.success(`${user.email} registered successfully!`);
-        // updateUser({ displayName: name, photoURL: photo })
-        //   .then(() => {
-        //     setUser({ ...user, displayName: name, photoURL: photo });
-        //     navigate("/");
-        //   })
-        //   .catch((error) => {
+        updateUser({ displayName: name, photoURL: photo })
+          .then(() => {
+            setUser({ ...user, displayName: name, photoURL: photo });
+            navigate("/");
+          })
+          .catch((error) => {
 
-        //     setUser(user);
-        //   });
+            setUser(user);
+          });
       })
       .catch((error) => {
         const errorMessage = error.message;

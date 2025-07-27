@@ -71,7 +71,7 @@ export default function BrowseTips() {
                   {/* Image */}
                   <td className="p-3">
                     <img
-                      src={tip.image}
+                      src={tip.imageUrl || tip.image}
                       alt={tip.title}
                       className="w-20 h-16 object-cover rounded-md"
                     />
