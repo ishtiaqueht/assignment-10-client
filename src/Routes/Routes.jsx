@@ -13,14 +13,22 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    errorElement:<ErrorPage></ErrorPage>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/explore-gardeners", element:<ExploreGardeners></ExploreGardeners> },
-      { path: "/browse-tips", element: <BrowseTips></BrowseTips> },
-    //   { path: "/tips/:id", element: <TipDetails /> },
+      {
+        path: "/explore-gardeners",
+        loader: () => fetch("http://localhost:3000/gardeners"),
+        element: <ExploreGardeners></ExploreGardeners>,
+      },
+      {
+        path: "/browse-tips",
+        loader: () => fetch("http://localhost:3000/tips"),
+        element: <BrowseTips></BrowseTips>,
+      },
+      //   { path: "/tips/:id", element: <TipDetails /> },
       { path: "/share-tip", element: <ShareTip /> }, // Private Route হবে
-      { path: "/my-tips", element: <MyTips /> },     // Private Route হবে
+      { path: "/my-tips", element: <MyTips /> }, // Private Route হবে
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
     ],
