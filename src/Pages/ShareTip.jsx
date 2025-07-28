@@ -3,7 +3,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
 
 const ShareTip = () => {
-  const { user,loading,setLoading } = useContext(AuthContext);
+  const { user, loading, setLoading } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,6 +12,9 @@ const ShareTip = () => {
     const form = e.target;
     const formData = new FormData(form);
     const tipData = Object.fromEntries(formData.entries());
+
+    tipData.userEmail = user?.email;
+    tipData.userName = user?.displayName;
 
     // ✅ Send data to your backend API
     fetch("http://localhost:3000/tips", {
@@ -138,6 +141,7 @@ const ShareTip = () => {
           <label className="font-semibold text-gray-700">Your Email</label>
           <input
             type="text"
+            name="email"
             value={user?.email || ""}
             readOnly
             className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-100 text-gray-500 shadow-sm cursor-not-allowed"
@@ -147,6 +151,7 @@ const ShareTip = () => {
           <label className="font-semibold text-gray-700">Your Name</label>
           <input
             type="text"
+            name="name"
             value={user?.displayName || ""}
             readOnly
             className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-100 text-gray-500 shadow-sm cursor-not-allowed"
