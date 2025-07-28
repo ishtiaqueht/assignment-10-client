@@ -76,20 +76,18 @@ const TopTrendingTips = () => {
                   {tip.difficulty}
                 </p>
                 <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-200">
-                <button
-                  onClick={() => handleLike(tip._id)}
-                  className="flex items-center gap-1 text-red-500 hover:text-red-600 text-sm font-medium transition"
-                >
-                  <FaHeart className="text-2xl" />
-                  {tip.totalLiked ?? 0}
-                </button>
-                <span className="text-xs text-gray-400">
-                  By: {tip.userName || "Unknown"}
-                </span>
+                  <button
+                    onClick={() => handleLike(tip._id)}
+                    className="flex items-center gap-1 text-red-500 hover:text-red-600 text-sm font-medium transition"
+                  >
+                    <FaHeart className="text-2xl" />
+                    {tip.totalLiked ?? 0}
+                  </button>
+                  <span className="text-xs text-gray-400">
+                    By: {tip.userName || "Unknown"}
+                  </span>
+                </div>
               </div>
-              </div>
-
-              
             </div>
           </div>
         ))}

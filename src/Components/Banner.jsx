@@ -5,7 +5,7 @@ const slides = [
   {
     id: 1,
     image: "/public/images/banner-1.jpg",
-    title: "🌼 Gardening Workshop",
+    title: " Gardening Workshop",
     description: "Join our hands-on composting and soil improvement session.",
     button: "Join Now",
     link: "/explore-gardeners",
@@ -13,7 +13,7 @@ const slides = [
   {
     id: 2,
     image: "/public/images/banner-2.jpg",
-    title: "🌱 Balcony Gardening Tips",
+    title: "Balcony Gardening Tips",
     description: "Learn how to grow more in small spaces. Beginners welcome!",
     button: "Learn More",
     link: "/browse-tips",
@@ -21,7 +21,7 @@ const slides = [
   {
     id: 3,
     image: "/public/images/banner-3.jpg",
-    title: "💧 Hydroponics Basics",
+    title: " Hydroponics Basics",
     description: "Discover water-based farming and modern techniques.",
     button: "Explore",
     link: "/browse-tips",
