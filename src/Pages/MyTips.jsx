@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const MyTips = () => {
   const { user } = useContext(AuthContext);
@@ -16,24 +17,45 @@ const MyTips = () => {
     }
   }, [user]);
 
-  const handleDelete = (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this tip?"
-    );
-    if (confirmDelete) {
-      fetch(`https://your-server.com/tips/${id}`, {
-        method: "DELETE",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.deletedCount > 0) {
-            toast.success("Tip deleted successfully!");
-            const updatedTips = myTips.filter((tip) => tip._id !== id);
-            setMyTips(updatedTips);
-          }
+   const handleDelete = (_id) => {
+        console.log(_id);
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            console.log(result.isConfirmed)
+            if (result.isConfirmed) {
+
+                // start deleting the tip
+                fetch(`http://localhost:3000/tips/${_id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your tip has been deleted.",
+                                icon: "success"
+                            });
+
+                            // remove the tip from the state
+                            const remainingTips = myTips.filter(tip => tip._id !== _id);
+                            setMyTips(remainingTips);
+                        }
+                    })
+
+
+            }
         });
+
     }
-  };
 
   return (
     <div className="max-w-5xl mx-auto p-4">
