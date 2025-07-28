@@ -10,6 +10,7 @@ import Register from "../Pages/Register";
 import Login from "../Pages/Login";
 import TipDetails from "../Pages/TipDetails";
 import PrivateRoute from "../layouts/PrivateRoute";
+import UpdateTip from "../Pages/UpdateTip";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,16 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyTips />
+          </PrivateRoute>
+        ),
+      }, // Private Route হবে
+      {
+        path: "/update-tip/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/tips/${params.id}`),
+        element: (
+          <PrivateRoute>
+            <UpdateTip />
           </PrivateRoute>
         ),
       }, // Private Route হবে
