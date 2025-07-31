@@ -53,77 +53,111 @@ const MyTips = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-6 text-center text-[#556B2F] animate-[fadeInDown_0.6s_ease-out_forwards]">
-        📋 My Garden Tips
-      </h2>
+   <div className="max-w-5xl mx-auto p-4">
+  <h2 className="text-2xl font-bold mb-6 text-center text-[#556B2F] animate-[fadeInDown_0.6s_ease-out_forwards]">
+    📋 My Garden Tips
+  </h2>
 
-      {myTips.length === 0 ? (
-        <p className="text-center italic text-[#A0C878] animate-[fadeIn_0.6s_ease-out_forwards]">
-          No tips shared yet.
-        </p>
-      ) : (
-        <div className="overflow-x-auto animate-[fadeIn_0.6s_ease-out_forwards]">
-          <table className="table-auto w-full border border-[#DDEB9D] rounded-lg shadow-md min-w-[600px] md:min-w-full">
-            <thead className="bg-[#FAF6E9]">
-              <tr>
-                <th className="py-3 px-4 text-left font-semibold text-[#556B2F]">
-                  Title
-                </th>
-                <th className="py-3 px-4 text-left font-semibold text-[#556B2F] hidden sm:table-cell">
-                  Category
-                </th>
-                <th className="py-3 px-4 text-left font-semibold text-[#556B2F] hidden sm:table-cell">
-                  Status
-                </th>
-                <th className="py-3 px-4 text-left font-semibold text-[#556B2F]">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {myTips.map((tip) => (
-                <tr
-                  key={tip._id}
-                  className="border-b border-[#DDEB9D] hover:bg-[#FAF6E9] transition-colors duration-300 cursor-pointer"
-                >
-                  <td className="py-3 px-4">{tip.title}</td>
-                  <td className="py-3 px-4 hidden sm:table-cell">
-                    {tip.category}
-                  </td>
-                  <td className="py-3 px-4 capitalize hidden sm:table-cell">
-                    <span
-                      className={`inline-block px-2 py-1 rounded text-xs font-semibold ${
-                        tip.availability?.toLowerCase() === "public"
-                          ? "bg-[#A0C878] text-white"
-                          : "bg-gray-400 text-white"
-                      }`}
-                    >
-                      {tip.availability?.toLowerCase() === "public"
-                        ? "Public"
-                        : "Hidden"}
-                    </span>
-                  </td>
-                  <td className="py-3 px-4 space-x-2">
-                    <Link to={`/update-tip/${tip._id}`}>
-                      <button className="btn btn-sm bg-[#A0C878] text-white hover:bg-[#899c5f] transition-colors duration-300">
-                        ✏️ Update
-                      </button>
-                    </Link>
-                    <button
-                      onClick={() => handleDelete(tip._id)}
-                      className="btn btn-sm bg-red-600 text-white hover:bg-red-700 transition-colors duration-300"
-                    >
-                      🗑️ Delete
+  {myTips.length === 0 ? (
+    <p className="text-center italic text-[#A0C878] animate-[fadeIn_0.6s_ease-out_forwards]">
+      No tips shared yet.
+    </p>
+  ) : (
+    <div className="animate-[fadeIn_0.6s_ease-out_forwards]">
+      {/* For small screens: card view */}
+      <div className="sm:hidden space-y-4">
+        {myTips.map((tip) => (
+          <div
+            key={tip._id}
+            className="bg-[#FAF6E9] rounded-lg p-4 shadow-md border border-[#DDEB9D]"
+          >
+            <h3 className="text-lg font-semibold text-[#556B2F]">{tip.title}</h3>
+            <p className="text-sm text-[#4B6447]">Category: {tip.category}</p>
+            <p className="text-sm text-[#4B6447]">
+              Status:{" "}
+              <span
+                className={`inline-block px-2 py-1 rounded text-xs font-semibold ${
+                  tip.availability?.toLowerCase() === "public"
+                    ? "bg-[#A0C878] text-white"
+                    : "bg-gray-400 text-white"
+                }`}
+              >
+                {tip.availability?.toLowerCase() === "public"
+                  ? "Public"
+                  : "Hidden"}
+              </span>
+            </p>
+            <div className="mt-3 space-x-2">
+              <Link to={`/update-tip/${tip._id}`}>
+                <button className="btn btn-sm bg-[#A0C878] text-white hover:bg-[#899c5f] transition-colors duration-300">
+                  ✏️ Update
+                </button>
+              </Link>
+              <button
+                onClick={() => handleDelete(tip._id)}
+                className="btn btn-sm bg-red-600 text-white hover:bg-red-700 transition-colors duration-300"
+              >
+                🗑️ Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* For medium+ screens: table view */}
+      <div className="hidden sm:block overflow-x-auto">
+        <table className="table-auto w-full border border-[#DDEB9D] rounded-lg shadow-md">
+          <thead className="bg-[#FAF6E9]">
+            <tr>
+              <th className="py-3 px-4 text-left font-semibold text-[#556B2F]">Title</th>
+              <th className="py-3 px-4 text-left font-semibold text-[#556B2F]">Category</th>
+              <th className="py-3 px-4 text-left font-semibold text-[#556B2F]">Status</th>
+              <th className="py-3 px-4 text-left font-semibold text-[#556B2F]">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {myTips.map((tip) => (
+              <tr
+                key={tip._id}
+                className="border-b border-[#DDEB9D] hover:bg-[#FAF6E9] transition-colors duration-300 cursor-pointer"
+              >
+                <td className="py-3 px-4">{tip.title}</td>
+                <td className="py-3 px-4">{tip.category}</td>
+                <td className="py-3 px-4 capitalize">
+                  <span
+                    className={`inline-block px-2 py-1 rounded text-xs font-semibold ${
+                      tip.availability?.toLowerCase() === "public"
+                        ? "bg-[#A0C878] text-white"
+                        : "bg-gray-400 text-white"
+                    }`}
+                  >
+                    {tip.availability?.toLowerCase() === "public"
+                      ? "Public"
+                      : "Hidden"}
+                  </span>
+                </td>
+                <td className="py-3 px-4 space-x-2">
+                  <Link to={`/update-tip/${tip._id}`}>
+                    <button className="btn btn-sm bg-[#A0C878] text-white hover:bg-[#899c5f] transition-colors duration-300">
+                      ✏️ Update
                     </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(tip._id)}
+                    className="btn btn-sm bg-red-600 text-white hover:bg-red-700 transition-colors duration-300"
+                  >
+                    🗑️ Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
+  )}
+</div>
+
   );
 };
 
