@@ -4,12 +4,16 @@ import FeaturedGardeners from "../Components/FeaturedGardeners";
 import TopTrendingTips from "../Components/TopTreandingTips";
 import SeasonalGuide from "../Components/SesonalGuide";
 import GardeningTools from "../Components/GardeningTools";
+import HeaderWithTypewriter from "../Components/HeaderWithTypewriter";
 
 const Home = () => {
   return (
-    <div>
+    <div className="home-div">
       <section className="mb-24">
         <Banner></Banner>
+      </section>
+      <section className="mb-24">
+        <HeaderWithTypewriter></HeaderWithTypewriter>
       </section>
       <section className="mb-24">
         <FeaturedGardeners></FeaturedGardeners>
@@ -17,7 +21,7 @@ const Home = () => {
       <section className="mb-24">
         <TopTrendingTips></TopTrendingTips>
       </section>
-      <section className="mb-24">
+      <section className="mb-24 ">
         <SeasonalGuide></SeasonalGuide>
       </section>
       <section className="mb-24">

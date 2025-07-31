@@ -21,18 +21,18 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       {
         path: "/explore-gardeners",
-        loader: () => fetch("http://localhost:3000/gardeners"),
+        loader: () => fetch("https://assignment-10-server-rose-omega.vercel.app/gardeners"),
         element: <ExploreGardeners></ExploreGardeners>,
       },
       {
         path: "/browse-tips",
-        loader: () => fetch("http://localhost:3000/tips/"),
+        loader: () => fetch("https://assignment-10-server-rose-omega.vercel.app/tips/"),
         element: <BrowseTips></BrowseTips>,
       },
       {
         path: "/tips/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/tips/${params.id}`),
+          fetch(`https://assignment-10-server-rose-omega.vercel.app/tips/${params.id}`),
         element: (
           <PrivateRoute>
             <TipDetails />
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
       {
         path: "/update-tip/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/tips/${params.id}`),
+          fetch(`https://assignment-10-server-rose-omega.vercel.app/tips/${params.id}`),
         element: (
           <PrivateRoute>
             <UpdateTip />

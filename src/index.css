@@ -1,2 +1,77 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #fffdf6; /*cream white bg*/
+  --color-secondary: #faf6e9; /*crd section LB*/
+  --color-base-content: #ddeb9d; /*PG head badge*/
+  --color-success: #a0c878; /*OG btn icon */
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+a.active {
+  @apply bg-base-content;
+  @apply text-green-700;
+}
+
+.dark {
+  .navbar,
+  .footer {
+    background-color: #6f8f56;
+  }
+  .menu {
+    a.active {
+      background-color: #f9f9f9;
+      color: #010101;
+    }
+  }
+  .body-content {
+    background-color: #1e1e1e;
+    .explore-gardeners {
+      background-color: #2a2a2a;
+    }
+  }
+  section {
+    section {
+      @apply bg-gradient-to-r from-[#1f1f1f] to-[#3d4a24];
+    }
+    .home-div {
+      @apply bg-gradient-to-r from-[#1f1f1f] to-[#3d4a24];
+    }
+    .home-h1 {
+      @apply text-green-300;
+    }
+  }
+  main .browse-tips {
+    background-color: #2a2a2a;
+  }
+
+  main .share-tip {
+    background-color: linear-gradient(
+      to bottom right,
+      #1e1e1e,
+      #2a2a2a,
+      #141414
+    );
+  }
+  main > div > div > table {
+    background: #2a2a2a;
+  }
+  main > div > form > button.share-btn {
+    background-color: linear-gradient(to right, #6f8f56, #a6bb4f);
+  }
+  main > div > div > table > tbody > tr:hover{
+    background-color: #807676;
+  }  
+  main>div.login{
+    background-color:  #1e1e1e;
+  }
+  main>div.register{
+    background-color:  #1e1e1e;
+  }
+}

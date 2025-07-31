@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 const TopTrendingTips = () => {
   const [tips, setTips] = useState([]);
 
   // Load Top 6 Trending Tips
   useEffect(() => {
-    fetch("http://localhost:3000/tips") // ✅ Update with your server URL if hosted
+    fetch("https://assignment-10-server-rose-omega.vercel.app/tips")
       .then((res) => res.json())
       .then((data) => {
         const sorted = data
@@ -16,12 +18,12 @@ const TopTrendingTips = () => {
           .slice(0, 6);
         setTips(sorted);
       })
-      .catch((err) => console.error("Error fetching tips:", err));
+      
   }, []);
 
   // Handle Like
   const handleLike = (id) => {
-    fetch(`http://localhost:3000/tips/like/${id}`, {
+    fetch(`https://assignment-10-server-rose-omega.vercel.app/tips/like/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
@@ -29,7 +31,6 @@ const TopTrendingTips = () => {
         if (data.modifiedCount > 0) {
           toast.success("Liked!");
 
-          // update local state
           const updatedTips = tips.map((tip) =>
             tip._id === id
               ? { ...tip, totalLiked: (tip.totalLiked || 0) + 1 }
@@ -39,14 +40,14 @@ const TopTrendingTips = () => {
         }
       })
       .catch((err) => {
-        console.error("Like failed:", err);
-        toast.error("Failed to like the tip");
+        
+        toast.error("Failed to like the tip",err);
       });
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h2 className="text-4xl font-bold text-center mb-12 text-green-700">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-[#FAF6E9] rounded-2xl">
+      <h2 className="text-4xl font-bold text-center mb-12 text-[#A0C878]">
         🌿 Top Trending Tips
       </h2>
 
@@ -54,7 +55,7 @@ const TopTrendingTips = () => {
         {tips.map((tip) => (
           <div
             key={tip._id}
-            className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
+            className="bg-[#FFFDF6] rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-[#DDEB9D]"
           >
             <div className="overflow-hidden rounded-t-2xl">
               <img
@@ -65,25 +66,31 @@ const TopTrendingTips = () => {
             </div>
             <div className="p-6 flex flex-col h-full justify-between">
               <div>
-                <h3 className="text-xl font-semibold text-green-800 mb-2 line-clamp-2">
+                <h3 className="text-xl font-semibold text-[#A0C878] mb-2 line-clamp-2">
                   {tip.title}
                 </h3>
-                <p className="text-sm text-gray-600 mb-1">
+                <p className="text-sm text-[#A0C878] mb-1">
                   <span className="font-medium">Category:</span> {tip.category}
                 </p>
-                <p className="text-sm text-gray-500 mb-4">
+                <p className="text-sm text-[#DDEB9D] mb-4">
                   <span className="font-medium">Difficulty:</span>{" "}
                   {tip.difficulty}
                 </p>
-                <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-200">
+                <div className="flex justify-between items-center mt-4 pt-4 border-t border-[#DDEB9D]">
                   <button
                     onClick={() => handleLike(tip._id)}
+                    data-tooltip-id={`tip-tooltip-${tip._id}`}
+                    data-tooltip-content={`Difficulty: ${tip.difficulty}`}
                     className="flex items-center gap-1 text-red-500 hover:text-red-600 text-sm font-medium transition"
                   >
                     <FaHeart className="text-2xl" />
                     {tip.totalLiked ?? 0}
                   </button>
-                  <span className="text-xs text-gray-400">
+
+                  {/* Tooltip Component */}
+                  <Tooltip id={`tip-tooltip-${tip._id}`} place="top" />
+
+                  <span className="text-xs text-[#DDEB9D]">
                     By: {tip.userName || "Unknown"}
                   </span>
                 </div>

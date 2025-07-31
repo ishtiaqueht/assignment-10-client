@@ -1,4 +1,3 @@
-
 import React from "react";
 
 const tools = [
@@ -30,8 +29,8 @@ const tools = [
 
 const GardeningTools = () => {
   return (
-    <section className="bg-gradient-to-r from-green-200 via-green-100 to-green-200 py-16 px-6 sm:px-10 lg:px-20">
-      <h2 className="text-4xl font-extrabold text-center text-green-900 mb-12 drop-shadow-lg">
+    <section className="bg-gradient-to-r from-[#FAF6E9] via-[#FFFDF6] to-[#FAF6E9] py-16 px-6 sm:px-10 lg:px-20 rounded-3xl shadow-inner">
+      <h2 className="text-4xl font-extrabold text-center text-[#4B6447] mb-12 drop-shadow-md">
         🛠️ Gardening Tools & Resources
       </h2>
 
@@ -39,9 +38,9 @@ const GardeningTools = () => {
         {tools.map((tool, idx) => (
           <div
             key={idx}
-            className="bg-white rounded-3xl shadow-xl p-7 hover:scale-105 transform transition-transform duration-300 cursor-pointer"
+            className="bg-[#FFFDF6] rounded-3xl shadow-lg p-7 hover:scale-105 transform transition-transform duration-300 cursor-pointer border border-[#A0C878]"
           >
-            <h3 className="text-2xl font-semibold text-green-800 mb-3">
+            <h3 className="text-2xl font-semibold text-[#556B2F] mb-3">
               {tool.name}
             </h3>
             <p className="text-gray-700 mb-5">{tool.description}</p>
@@ -49,7 +48,7 @@ const GardeningTools = () => {
               href={tool.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-green-600 text-white px-5 py-2 rounded-full font-medium hover:bg-green-700 transition-colors"
+              className="inline-block bg-[#A0C878] text-white px-5 py-2 rounded-full font-medium hover:bg-[#859A5B] transition-colors"
             >
               Learn More
             </a>

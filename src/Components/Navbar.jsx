@@ -1,11 +1,15 @@
-import React, { use, useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, NavLink } from "react-router";
 import { toast } from "react-toastify";
 import { AuthContext } from "../Provider/AuthProvider";
+import { FaSun, FaMoon } from "react-icons/fa";
+import { ThemeContext } from "../ThemeProvider";
 
 const Navbar = () => {
-  const { user, logOut } = use(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+  const { darkMode, toggleTheme } = useContext(ThemeContext);
   const [showDropdown, setShowDropdown] = useState(false);
+
   const handleLogOut = () => {
     logOut()
       .then(() => {
@@ -13,11 +17,12 @@ const Navbar = () => {
         setShowDropdown(false);
       })
       .catch((error) => {
-        toast.error(error);
+        toast.error(error.message);
       });
   };
+
   return (
-    <div className="navbar bg-base-100 shadow-sm text-gray-800 sticky top-0 z-50">
+    <div className="navbar  bg-[#A0C878]  shadow-sm text-white sticky top-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -28,18 +33,17 @@ const Navbar = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              {" "}
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
+              />
             </svg>
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 text-black rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
               <NavLink to="/">Home</NavLink>
@@ -59,17 +63,15 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="hidden md:flex items-center gap-0.5">
-          {/* Logo */}
           <img src="/logo.png" className="w-14 h-14" alt="TreeHub Logo" />
-
-          {/* Text */}
           <p className="text-xl font-bold">
             <span className="text-green-600">Tree</span>Hub
           </p>
         </div>
       </div>
+
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 text-xl">
           <li>
             <NavLink to="/">Home</NavLink>
           </li>
@@ -91,19 +93,31 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-       <div className="navbar-end space-x-2">
+
+      <div className="navbar-end space-x-2 flex items-center">
+        {/* Dark Mode Toggle */}
+        <button
+          onClick={toggleTheme}
+          className="mr-4 text-white text-xl focus:outline-none"
+          aria-label="Toggle Dark Mode"
+          title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+        >
+          {darkMode ? <FaSun /> : <FaMoon />}
+        </button>
+
         {user ? (
-          <div className="relative">
-            <div
-              className="avatar cursor-pointer hover:scale-110 transition"
-              onClick={() => setShowDropdown(!showDropdown)}
-            >
+          <div
+            className="relative"
+            onMouseEnter={() => setShowDropdown(true)}
+            onMouseLeave={() => setShowDropdown(false)}
+          >
+            <div className="avatar cursor-pointer hover:scale-110 transition">
               <div className="w-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                 <img
                   src={
                     user?.photoURL ||
                     "https://img.icons8.com/fluency/96/user-male-circle.png"
-                  } 
+                  }
                   alt="User"
                 />
               </div>
@@ -111,33 +125,35 @@ const Navbar = () => {
 
             {showDropdown && (
               <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-50 p-4 text-center space-y-3.5">
-                <p className="text-xl font-bold text-success">
-                  {user?.email}
-                </p>
-                <div className="divider divider-info"></div>
-                <button
+                <p className="text-xl font-bold text-success">{user?.email}</p>
+                <div className="divider divider-neutral"></div>
+                <a
+                  href="#_"
                   onClick={handleLogOut}
-                  className="relative px-6 py-3 font-bold text-white group"
+                  className="px-5 py-2.5 relative rounded group overflow-hidden font-medium bg-purple-50 text-green-600 inline-block"
                 >
-                  <span className="absolute inset-0 w-full h-full transition duration-300 ease-out transform -translate-x-2 -translate-y-2 bg-error group-hover:translate-x-0 group-hover:translate-y-0"></span>
-                  <span className="absolute inset-0 w-full h-full border-4 border-base-200"></span>
-                  <span className="relative">LogOut</span>
-                </button>
+                  <span className="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-success group-hover:h-full opacity-90"></span>
+                  <span className="relative group-hover:text-white">LogOut</span>
+                </a>
               </div>
             )}
           </div>
         ) : (
           <>
-            <Link to="/login" className="relative px-6 py-3 font-bold text-white group">
-              <span className="absolute inset-0 w-full h-full transition duration-300 ease-out transform -translate-x-2 -translate-y-2 bg-primary group-hover:translate-x-0 group-hover:translate-y-0"></span>
-              <span className="absolute inset-0 w-full h-full border-4 border-base-200"></span>
-              <span className="relative">Login</span>
+            <Link
+              to="/login"
+              className="px-5 py-2.5 relative rounded group overflow-hidden font-medium bg-purple-50 text-green-600 inline-block"
+            >
+              <span className="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-success group-hover:h-full opacity-90"></span>
+              <span className="relative group-hover:text-white">Log In</span>
             </Link>
 
-            <Link to="/register" className="relative px-6 py-3 font-bold text-white group">
-              <span className="absolute inset-0 w-full h-full transition duration-300 ease-out transform -translate-x-2 -translate-y-2 bg-primary group-hover:translate-x-0 group-hover:translate-y-0"></span>
-              <span className="absolute inset-0 w-full h-full border-4 border-base-200"></span>
-              <span className="relative">Register</span>
+            <Link
+              to="/register"
+              className="px-5 py-2.5 relative rounded group overflow-hidden font-medium bg-purple-50 text-green-600 inline-block"
+            >
+              <span className="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-success group-hover:h-full opacity-90"></span>
+              <span className="relative group-hover:text-white">Register</span>
             </Link>
           </>
         )}

@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
-  const { createUser, setUser,updateUser, signInWithGoogle } = use(AuthContext);
+  const { createUser, setUser, updateUser, signInWithGoogle } =
+    use(AuthContext);
   const [nameError, setNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
@@ -22,7 +23,7 @@ const Register = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-    // console.log(photo)
+    
 
     if (password.length < 8) {
       setPasswordError("Password must be at least 8 characters long");
@@ -57,7 +58,6 @@ const Register = () => {
             navigate("/");
           })
           .catch((error) => {
-
             setUser(user);
           });
       })
@@ -79,77 +79,78 @@ const Register = () => {
       });
   };
   return (
-    <div className="flex justify-center items-center">
-      <div className="card bg-white w-full max-w-sm shrink-0 shadow-2xl py-5">
-        <h2 className="font-semibold text-2xl text-center">
+    <div className="register flex justify-center items-center min-h-screen bg-[#FFFDF6] px-4">
+      <div className="card bg-[#FAF6E9] w-full max-w-sm shrink-0 shadow-2xl py-5 rounded-2xl border border-[#DDEB9D]">
+        <h2 className="font-semibold text-2xl text-center text-[#556B2F] mb-4">
           Register your account
         </h2>
-        <form onSubmit={handleRegister} className="card-body">
-          <fieldset className="fieldset">
-            {/* Name  */}
-            <label className="label text-base-300">Name</label>
+        <form onSubmit={handleRegister} className="card-body px-6">
+          <fieldset className="space-y-4">
+            <label className="block font-semibold text-[#556B2F]">Name</label>
             <input
               name="name"
               type="text"
-              className="input"
+              className="input w-full rounded-xl border border-[#A0C878] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#A0C878]"
               placeholder="Name"
               required
             />
+            {nameError && <p className="text-xs text-red-600">{nameError}</p>}
 
-            {nameError && <p className="text-xs text-error">{nameError}</p>}
-
-            {/* Photo URl  */}
-            <label className="label text-base-300">Photo URl </label>
+            <label className="block font-semibold text-[#556B2F]">
+              Photo URL
+            </label>
             <input
               name="photo"
               type="text"
-              className="input"
-              placeholder="Photo URl"
+              className="input w-full rounded-xl border border-[#A0C878] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#A0C878]"
+              placeholder="Photo URL"
               required
             />
 
-            {/* email  */}
-            <label className="label text-base-300">Email</label>
+            <label className="block font-semibold text-[#556B2F]">Email</label>
             <input
               name="email"
               type="email"
               autoComplete="off"
-              className="input"
+              className="input w-full rounded-xl border border-[#A0C878] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#A0C878]"
               placeholder="Email"
               required
             />
 
-            {/* password  */}
-            <label className="label text-base-300">Password</label>
+            <label className="block font-semibold text-[#556B2F]">
+              Password
+            </label>
             <input
               name="password"
               type="password"
               autoComplete="new-password"
-              className="input"
+              className="input w-full rounded-xl border border-[#A0C878] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#A0C878]"
               placeholder="Password"
               required
             />
-
             {passwordError && (
-              <p className="text-xs text-error">{passwordError}</p>
+              <p className="text-xs text-red-600">{passwordError}</p>
             )}
 
             <button
               type="submit"
-              className="btn btn-neutral mt-4 bg-primary border-0"
+              className="btn mt-4 w-full bg-gradient-to-r from-[#A0C878] to-[#899c5f] hover:from-[#899c5f] hover:to-[#A0C878] text-white font-semibold rounded-xl transition"
             >
               Register
             </button>
-            <p className="font-semibold text-center pt-5">
-              Already Have An Account ?{" "}
-              <Link className="text-secondary" to="/login">
+
+            <p className="font-semibold text-center pt-5 text-[#556B2F]">
+              Already Have An Account?{" "}
+              <Link className="text-[#A0C878] hover:underline" to="/login">
                 Login
               </Link>
             </p>
-            <div className="divider">OR</div>
+
+            <div className="divider text-[#A0C878]">OR</div>
+
             <button
               onClick={handleGoogleLogin}
-              className="btn bg-primary  text-black border-[#e5e5e5]"
+              className="btn w-full bg-[#A0C878] text-white rounded-xl flex items-center justify-center gap-2 hover:bg-[#899c5f] transition"
             >
               <svg
                 aria-label="Google logo"

@@ -3,15 +3,13 @@ import { useState } from "react";
 import { Eye } from "lucide-react";
 
 export default function BrowseTips() {
-  const initialTips = useLoaderData(); // Loader থেকে প্রথমবার সব public tips আসবে
+  const initialTips = useLoaderData(); 
   const [tips, setTips] = useState(initialTips);
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
 
-  // ✅ Dropdown থেকে filter করলে backend call হবে
   const handleFilter = async (difficulty) => {
     setSelectedDifficulty(difficulty);
 
-    // যদি difficulty select না করা থাকে → আবার সব data দেখাও
     if (!difficulty) {
       setTips(initialTips);
       return;
@@ -19,28 +17,26 @@ export default function BrowseTips() {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/tips?difficulty=${difficulty}`
+        `https://assignment-10-server-rose-omega.vercel.app/tips?difficulty=${difficulty}`
       );
       const data = await res.json();
-      console.log("Filtered Data:", data); // ✅ Debug check
-      setTips(data); // ✅ Filtered tips set করো
-    } catch (error) {
-      console.error("Error fetching filtered tips:", error);
-    }
+      
+      setTips(data);
+    } catch (error){}
+    
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold text-center mb-6">
+    <div className="browse-tips min-h-screen bg-[#FFFDF6] p-6">
+      <h1 className="text-3xl font-bold text-center mb-6 text-[#4B6447]">
         🌱 Browse Public Tips
       </h1>
 
-      {/* ✅ Filter Dropdown */}
       <div className="flex justify-start mb-4">
         <select
           value={selectedDifficulty}
           onChange={(e) => handleFilter(e.target.value)}
-          className="px-3 py-2 border rounded-md shadow-sm"
+          className="px-3 py-2 border border-[#A0C878] rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#DDEB9D] focus:border-[#A0C878]"
         >
           <option value="">All Difficulty</option>
           <option value="Easy">Easy</option>
@@ -49,10 +45,9 @@ export default function BrowseTips() {
         </select>
       </div>
 
-      {/* ✅ Table */}
       <div className="overflow-x-auto shadow-md rounded-lg">
-        <table className="w-full text-left border-collapse">
-          <thead className="bg-green-600 text-white">
+        <table className="w-full text-left border-collapse bg-[#FAF6E9] rounded-lg">
+          <thead className="bg-[#A0C878] text-white">
             <tr>
               <th className="p-3">Image</th>
               <th className="p-3">Title</th>
@@ -66,9 +61,8 @@ export default function BrowseTips() {
               tips.map((tip) => (
                 <tr
                   key={tip._id}
-                  className="border-b hover:bg-green-50 transition"
+                  className="border-b hover:bg-[#DDEB9D] transition"
                 >
-                  {/* Image */}
                   <td className="p-3">
                     <img
                       src={tip.imageUrl || tip.image}
@@ -77,18 +71,17 @@ export default function BrowseTips() {
                     />
                   </td>
 
-                  {/* Title */}
-                  <td className="p-3 font-medium">{tip.title}</td>
+                  <td className="p-3 font-medium text-[#556B2F]">
+                    {tip.title}
+                  </td>
 
-                  {/* Category */}
-                  <td className="p-3 text-gray-700">{tip.category}</td>
+                  <td className="p-3 text-[#556B2F]">{tip.category}</td>
 
-                  {/* ✅ Difficulty Column */}
                   <td className="p-3">
                     <span
-                      className={`px-2 py-1 rounded text-sm ${
+                      className={`px-2 py-1 rounded text-sm font-semibold ${
                         tip.difficulty === "Easy"
-                          ? "bg-green-200 text-green-800"
+                          ? "bg-[#DDEB9D] text-[#556B2F]"
                           : tip.difficulty === "Medium"
                           ? "bg-yellow-200 text-yellow-800"
                           : "bg-red-200 text-red-800"
@@ -98,11 +91,10 @@ export default function BrowseTips() {
                     </span>
                   </td>
 
-                  {/* Action */}
                   <td className="p-3 text-center">
                     <Link
                       to={`/tips/${tip._id}`}
-                      className="inline-flex items-center gap-1 text-green-600 hover:text-green-800"
+                      className="inline-flex items-center gap-1 text-[#556B2F] hover:text-[#A0C878] transition"
                     >
                       <Eye size={20} />{" "}
                       <span className="hidden md:inline">See More</span>
