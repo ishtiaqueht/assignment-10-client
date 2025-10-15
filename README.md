@@ -1,6 +1,6 @@
 # 🌱 TreeHub - Gardening Community & Resource Hub
 
-**Live Site:** [https://assignment-10-2245c.web.app/](https://assignment-10-server-rose-omega.vercel.app/)
+**Live Site:** [https://assignment-10-2245c.web.app/](https://assignment-10-2245c.web.app/)
 
 ---
 
